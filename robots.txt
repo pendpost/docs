@@ -1,0 +1,22 @@
+# pendpost docs (docs.pendpost.com) — CUSTOM robots.txt override.
+#
+# WHY: Mintlify's auto-generated robots.txt disallows /_next/ but serves the SAME
+# class of build assets under /mintlify-assets/_next/, which slips past that rule.
+# Google then 404-reports rotated, content-hashed chunks (e.g.
+# /mintlify-assets/_next/static/chunks/<hash>.js) after each docs redeploy. This
+# file reproduces Mintlify's current auto-output and extends the disallow to the
+# rotating build assets under /mintlify-assets/_next/static/ so they are never crawled.
+#
+# MAINTENANCE: a custom robots.txt REPLACES Mintlify's auto-generated one entirely
+# (no merge). If Mintlify changes its defaults (new AI-crawler rules, Content-Signal,
+# sitemap path), re-sync this file against `curl https://docs.pendpost.com/robots.txt`
+# BEFORE editing — or delete it to revert to auto-generation once Mintlify closes the
+# /mintlify-assets gap upstream.
+
+User-agent: *
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
+Disallow: /cdn-cgi/
+Allow: /_next/image
+Disallow: /_next/
+Disallow: /mintlify-assets/_next/static/
+Sitemap: https://docs.pendpost.com/sitemap.xml
