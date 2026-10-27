@@ -42,7 +42,7 @@ pendpost is MIT licensed. Copyright 2026 Nomadik GmbH. It is maintained part-tim
     Captions are checked before publish against rules in an editable `rules.json`. The humanizer layer flags English AI-writing tells. Errors block; warns are advisory.
   </Card>
   <Card title="4. Honest native scheduling" icon="calendar-clock">
-    Where a platform supports it (Facebook scheduled posts, YouTube `publishAt`), pendpost uses native scheduling and is honest about which cover and thumbnail mechanics actually apply per platform.
+    Where a platform supports it (YouTube `publishAt`, Mastodon, WordPress, Ghost), pendpost uses native scheduling, so those posts go out even when your computer is off. Instagram, Facebook, LinkedIn, and X go out at their time from the optional 24/7 cloud service or from your computer. pendpost is honest about which cover and thumbnail mechanics actually apply per platform.
   </Card>
   <Card title="5. Dual interface" icon="layout-panel-left">
     A web dashboard and any MCP client drive the same contract. A parity test enforces that every capability ships on both faces.
@@ -56,7 +56,7 @@ pendpost is MIT licensed. Copyright 2026 Nomadik GmbH. It is maintained part-tim
     Install via npx, git, or docker and open the dashboard.
   </Card>
   <Card title="Mock mode" icon="flask" href="/mock-mode">
-    Run the full loop with zero credentials.
+    Run the full loop risk-free with `PENDPOST_MODE=mock`.
   </Card>
   <Card title="MCP" icon="plug" href="/mcp-server">
     Connect Claude Code or Claude Desktop, or drive onboarding headless: `pendpost_health`, then `plan_list` (a fresh install shows the example Acme Launch campaign), then `campaign_create` to start your own.

@@ -3,7 +3,7 @@ title: Quickstart
 description: Boot pendpost in under a minute via git, npx, or docker, then open the dashboard or drive it over MCP.
 ---
 
-pendpost runs as a single local process. With no credentials it starts in mock mode, so you can run the full loop right away with zero setup. Pick whichever path fits your workflow.
+pendpost runs as a single local process. It runs live by default: a lane with no credentials is live-but-unauthenticated and waits for you to connect it, so nothing publishes until you do. To walk the whole loop risk-free first, start it in mock mode with `PENDPOST_MODE=mock`. Pick whichever path fits your workflow.
 
 ## Install and run
 
@@ -62,7 +62,7 @@ pendpost runs as a single local process. With no credentials it starts in mock m
 
 ## First run
 
-On first run pendpost ships an example `Acme Launch` campaign in `data/plans`, so the dashboard shows real content immediately instead of an empty screen. With no `.env` present, every platform lane runs in mock mode: no credentials, no real API calls.
+On first run pendpost ships an example `Acme Launch` campaign in `data/plans`, so the dashboard shows real content immediately instead of an empty screen. Start it with `PENDPOST_MODE=mock` and every platform lane runs through the credential-free mock driver: no real API calls. Without that, pendpost is live, so an unconnected lane waits for its credential rather than publishing.
 
 From the dashboard you can walk the full loop: draft a post, approve it, schedule it, watch it publish through the mock driver, and read back fabricated insights. See [Mock mode](/mock-mode) for the complete walkthrough.
 
@@ -78,7 +78,7 @@ pendpost binds `127.0.0.1` (loopback) by default. The docker image binds `0.0.0.
 
 ## Going live later
 
-When you are ready to publish for real, add credentials for the platforms you use in your own `.env`. A platform goes live only when its credential is present; otherwise it stays in mock mode. See:
+When you are ready to publish for real, add credentials for the platforms you use in your own `.env`. Every lane is already live; adding a credential is what lets that lane actually publish instead of waiting unauthenticated. (A lane only runs through the mock driver when you set `PENDPOST_MODE=mock`.) See:
 
 <CardGroup cols={2}>
   <Card title="Meta" icon="facebook" href="/credentials/meta">

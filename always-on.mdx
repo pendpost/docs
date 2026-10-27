@@ -3,7 +3,7 @@ title: Always-on self-host
 description: Run pendpost where it never sleeps so Instagram, LinkedIn, X, Telegram, Discord, and Nostr publish on schedule even when your computer is off, without exposing an unauthenticated publish API.
 ---
 
-pendpost is local-first: the scheduler is an in-process tick on your machine. Facebook and YouTube posts survive your computer being off because the platform itself fires them (Facebook `scheduled_publish_time`, YouTube `publishAt`), and Mastodon, WordPress, and Ghost posts survive the same way via their own native scheduling, but Instagram, LinkedIn, X, Telegram, Discord, and Nostr have no native scheduling, so pendpost must be running at the scheduled time to publish them.
+pendpost is local-first: the scheduler is an in-process tick on your machine. YouTube posts survive your computer being off because the platform itself fires them (YouTube `publishAt`), and Mastodon, WordPress, and Ghost posts survive the same way via their own native scheduling. pendpost publishes Instagram, Facebook, LinkedIn, X, Telegram, Discord, and Nostr itself at the scheduled time, so pendpost must be running then (or the optional 24/7 cloud service must cover them).
 
 To close that gap for free, run pendpost on a host that never sleeps. The one rule: never put an unauthenticated publish API on the public internet.
 
@@ -11,19 +11,19 @@ To close that gap for free, run pendpost on a host that never sleeps. The one ru
 
 | Platform | Survives your computer being off |
 |---|---|
-| Facebook | yes (native scheduled posts) |
 | YouTube | yes (native `publishAt`) |
 | Mastodon | yes (native scheduling) |
 | WordPress | yes (native scheduling) |
 | Ghost | yes (native scheduling) |
 | Instagram | no (pendpost must be running) |
+| Facebook | no (pendpost must be running) |
 | LinkedIn | no (pendpost must be running) |
 | X | no (pendpost must be running) |
 | Telegram | no (pendpost must be running) |
 | Discord | no (pendpost must be running) |
 | Nostr | no (pendpost must be running) |
 
-So you only need always-on hosting if you schedule Instagram, LinkedIn, X, Telegram, Discord, or Nostr.
+So you only need always-on hosting if you schedule Instagram, Facebook, LinkedIn, X, Telegram, Discord, or Nostr.
 
 ## Recommended: loopback server behind a zero-trust proxy
 

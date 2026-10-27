@@ -1,18 +1,18 @@
 ---
 title: Mock mode
-description: Run the full draft to insights loop with zero credentials and zero real API calls.
+description: Run the full draft to insights loop with no real API calls by starting pendpost in mock mode.
 ---
 
-Mock mode is the adoption unlock. A stranger can run the complete pendpost loop, draft, approve, schedule, publish, and insights, with no credentials and no real platform traffic. Nothing leaves your machine.
+Mock mode is the adoption unlock. Start pendpost with `PENDPOST_MODE=mock` and a stranger can run the complete pendpost loop, draft, approve, schedule, publish, and insights, with no credentials and no real platform traffic. Nothing leaves your machine.
 
 ## When mock mode is active
 
-pendpost resolves mode per platform:
+Mock mode is an explicit, global opt-in, not an automatic fallback:
 
-- **auto** (the default): a platform is live only if its credential is present in `.env`. Otherwise that lane runs in mock.
-- **forced**: set `PENDPOST_MODE=mock` to force every lane into mock regardless of credentials, or `PENDPOST_MODE=live` to require real credentials.
+- **live** (the default): with no `PENDPOST_MODE` set, every lane is live. A lane with no credential is live-but-unauthenticated; it waits for you to connect it and never fakes a publish, so nothing posts by accident.
+- **mock**: set `PENDPOST_MODE=mock` to route every lane through the credential-free mock driver, regardless of which credentials are present.
 
-So with no `.env` at all, every lane is in mock and you can explore freely.
+So to explore the whole loop freely, start pendpost with `PENDPOST_MODE=mock`.
 
 ## What the mock driver does
 
@@ -58,7 +58,7 @@ The campaign includes a mix of states so you can see the gate at work right away
 - An Instagram and Facebook reel in `draft`.
 - An Instagram reel already `approved` by the owner, ready to publish.
 
-Everything in the example runs in mock mode: no credentials, no real posting. Delete the `acme-launch` folder and its manifest entry once you start adding your own campaigns.
+Everything in the example runs through the mock driver while you have `PENDPOST_MODE=mock` set: no real posting. Delete the `acme-launch` folder and its manifest entry once you start adding your own campaigns.
 
 ## The mock ledger
 
