@@ -62,7 +62,7 @@ pendpost runs as a single local process. It runs live by default: a lane with no
 
 ## First run
 
-On first run pendpost ships an example `Acme Launch` campaign in `data/plans`, so the dashboard shows real content immediately instead of an empty screen. Start it with `PENDPOST_MODE=mock` and every platform lane runs through the credential-free mock driver: no real API calls. Without that, pendpost is live, so an unconnected lane waits for its credential rather than publishing.
+Start it with `PENDPOST_MODE=mock` and every platform lane runs through the credential-free mock driver: no real API calls. Mock mode runs in a private demo workspace in your temp folder, which opens on an example `Acme Launch` campaign so the dashboard shows real content instead of an empty screen. Without `PENDPOST_MODE=mock`, pendpost is live, so an unconnected lane waits for its credential rather than publishing. On pendpost 2.8.0 and earlier, also set `PENDPOST_ROOT=/tmp/pendpost-demo` for mock mode (see [Mock mode](/mock-mode)).
 
 From the dashboard you can walk the full loop: draft a post, approve it, schedule it, watch it publish through the mock driver, and read back fabricated insights. See [Mock mode](/mock-mode) for the complete walkthrough.
 

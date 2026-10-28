@@ -90,5 +90,10 @@
     "socials": {
       "github": "https://github.com/pendpost/pendpost"
     }
-  }
+  },
+  "redirects": [
+    { "source": "/getting-started/workspace/organization-settings", "destination": "/quickstart" },
+    { "source": "/getting-started/integrations/developer/webhooks", "destination": "/mcp-server" },
+    { "source": "/support/account-data/export-data", "destination": "/introduction" }
+  ]
 }

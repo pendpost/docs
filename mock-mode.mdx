@@ -12,7 +12,21 @@ Mock mode is an explicit, global opt-in, not an automatic fallback:
 - **live** (the default): with no `PENDPOST_MODE` set, every lane is live. A lane with no credential is live-but-unauthenticated; it waits for you to connect it and never fakes a publish, so nothing posts by accident.
 - **mock**: set `PENDPOST_MODE=mock` to route every lane through the credential-free mock driver, regardless of which credentials are present.
 
-So to explore the whole loop freely, start pendpost with `PENDPOST_MODE=mock`.
+So to explore the whole loop freely, start pendpost with `PENDPOST_MODE=mock`:
+
+```bash
+PENDPOST_MODE=mock npx pendpost
+```
+
+## Where mock data lives
+
+Mock mode never runs against your real workspace. With no `PENDPOST_ROOT` set, pendpost uses a private demo workspace in your temp folder (`pendpost-mock-<your user id>` under the OS temp directory) and fills it with the example Acme campaign on first start. Your real data, and the install folder, are never touched. Delete that folder to start the demo over.
+
+If you set `PENDPOST_ROOT` yourself, it has to point inside your temp folder (for example `/tmp/pendpost-demo`), or pendpost refuses to start in mock mode. That fence exists because mock publishes write fake platform ids, which must never land in real client data.
+
+<Note>
+On pendpost 2.8.0 and earlier, mock mode needs that `PENDPOST_ROOT` set explicitly, so use `PENDPOST_MODE=mock PENDPOST_ROOT=/tmp/pendpost-demo npx pendpost`. The command works on every version.
+</Note>
 
 ## What the mock driver does
 
@@ -50,7 +64,7 @@ The same loop runs in mock and live; only the driver at the end differs. Walk it
 
 ## The example Acme campaign
 
-So that a fresh checkout shows content on first run, pendpost ships an example `Acme Launch` campaign in `data/plans`. It is registered in the manifest `data/plans/active-plans.json` and lives under `data/plans/acme-launch/post-plan.json`.
+So that the dashboard shows content on first run, pendpost ships an example `Acme Launch` campaign. A git checkout and the mock demo workspace both open on it; a fresh live workspace you point `PENDPOST_ROOT` at starts empty. It lives under `data/clients/default/data/plans/acme-launch/post-plan.json`, registered in that folder's `active-plans.json`.
 
 The campaign includes a mix of states so you can see the gate at work right away:
 
@@ -62,7 +76,7 @@ Everything in the example runs through the mock driver while you have `PENDPOST_
 
 ## The mock ledger
 
-Every mock action is appended to a `.mock-ledger.json`. On a single-client install that resolves to `data/.mock-ledger.json`; on a multi-client instance each client's data root holds its own ledger, so the audit trail stays isolated per client. This file is created at runtime and grows as you run the loop. Read it to confirm exactly what each step did, including the fabricated ids and metrics, without trusting the dashboard view alone.
+Every mock action is appended to a `.mock-ledger.json` in the active client's data folder, for the default client `data/clients/default/data/.mock-ledger.json`. Each client has its own ledger, so the audit trail stays isolated per client. This file is created at runtime and grows as you run the loop. Read it to confirm exactly what each step did, including the fabricated ids and metrics, without trusting the dashboard view alone.
 
 <Note>
 Because mock mode never touches a real account, it is the safest place to learn the approval gate, the circuit breakers, and the brand-lint flow before you add any credentials.
