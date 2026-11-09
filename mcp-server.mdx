@@ -25,6 +25,25 @@ Claude Code connects over the HTTP transport. Add pendpost with:
 claude mcp add --transport http pendpost http://127.0.0.1:8090/mcp
 ```
 
+The public repo also has a Claude Code plugin in `packaging/claude-plugin/`. It adds the same server at `http://127.0.0.1:8090/mcp` and starts nothing on its own, so keep pendpost running (`npx pendpost` or the macOS app) while you work.
+
+## Cursor
+
+The repo root carries a Cursor plugin (`.cursor-plugin/`) and an `mcp.json`. The plugin starts the exact release it was built with over stdio, so there is no server to keep running. To add it by hand, put this in Cursor's `mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "pendpost": {
+      "command": "npx",
+      "args": ["-y", "pendpost", "--stdio"]
+    }
+  }
+}
+```
+
+Set `PENDPOST_ROOT` to an absolute folder if you want your workspace somewhere fixed. Without it, a bare `npx` run keeps plans and drafts inside the npm cache. `llms-install.md` in the repo walks an agent such as Cline through the same setup.
+
 ## Claude Desktop
 
 The simplest path is the one-click `.mcpb` bundle. It wraps `npx -y pendpost --stdio`, which boots the in-process engine and attaches an MCP stdio transport, so there is no separate server to start and no config file to edit.
